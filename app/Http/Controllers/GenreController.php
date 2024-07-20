@@ -7,7 +7,7 @@ use App\Models\Movie;
 
 class GenreController extends Controller
 {
-    public function getMoviesByGenre(Request $request) {
+    public function getMoviesGenre(Request $request) {
         $genre = $request->query('genre');
 
         // Retrieve movies by genre
