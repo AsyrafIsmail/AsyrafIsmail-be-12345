@@ -7,8 +7,11 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
+
+    // Function to handle the request for giving a rating
     public function giveRating(Request $request)
     {
+        // Validate the incoming request data
         $request->validate([
             'movie_title' => 'required|string',
             'username' => 'required|string',
@@ -16,11 +19,16 @@ class ReviewController extends Controller
             'r_description' => 'required|string'
         ]);
 
+        // Create a new Review object
         $review = new Review();
+
+        // Set the properties of the review from request data
         $review->movie_title = $request->input('movie_title');
         $review->username = $request->input('username');
         $review->rating = $request->input('rating');
         $review->r_description = $request->input('r_description');
+        
+        // Sava data in db
         $review->save();
 
         return response()->json([
