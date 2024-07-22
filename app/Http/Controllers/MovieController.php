@@ -41,26 +41,33 @@ class MovieController extends Controller
         return response()->json($movie, Response::HTTP_OK);
     }
 
-    // Update an existing movie record
+    // Update an existing movie
     public function update(Request $request, Movie $movie)
     {
+        // Validate the request parameters
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'release_date' => 'required|date',
+            'title' => 'sometimes|required|string|max:255',
+            'release_date' => 'sometimes|required|date',
+            'duration' => 'sometimes|required|integer',
+            'description' => 'sometimes|required|string',
+            'mpaa_rating' => 'sometimes|required|string|max:10',
+            'genres' => 'sometimes|required|string',
+            'director' => 'sometimes|required|string|max:255',
+            'performers' => 'sometimes|required|string',
+            'language' => 'sometimes|required|string|max:50',
         ]);
 
+        // Update the movie with the validated data
         $movie->update($request->all());
 
+        // Return the updated movie data as JSON
         return response()->json($movie, Response::HTTP_OK);
     }
 
     // Delete a movie
     public function destroy(Movie $movie)
     {
-        // Delete row dari table movies
         $movie->delete();
-
         return response()->noContent();
     }
 
